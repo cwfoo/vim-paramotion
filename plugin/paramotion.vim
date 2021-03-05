@@ -22,6 +22,7 @@ function! s:paragraph_move(direction, count)
             " non-whitespace characters.
             if search('\m\S', 'W') == 0 || search('\m^\s*$', 'W') == 0
                 call search('\%$', 'W')
+                return
             endif
             let i += 1
         endwhile
@@ -33,6 +34,7 @@ function! s:paragraph_move(direction, count)
             " non-whitespace characters.
             if search('\m\S', 'Wbc') == 0 || search('\m^\s*$', 'Wb') == 0
                 call cursor(1, 1)
+                return
             endif
             let i += 1
         endwhile
