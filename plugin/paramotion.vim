@@ -1,7 +1,7 @@
 " vim-paramotion — a global plugin that allows the { and } paragraph motions
 " to move to lines that only contain whitespace, not just completely empty
 " lines.
-" Version: 1.0.0 (2021-03-05)
+" Version: 1.0.1 (2021-03-06)
 " URL:     https://github.com/cwfoo/vim-paramotion
 " License: This file is licensed under the BSD Zero Clause License (0BSD).
 
@@ -10,12 +10,14 @@ if exists('g:loaded_paramotion')
 endif
 let g:loaded_paramotion = 1
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 function! s:paragraph_move(direction, count)
     normal! m'
 
     let i = 0
-    if a:direction > 0
-        " Forward paragraph motion.
+    if a:direction > 0  " Forward paragraph motion.
         normal! 0
         while i < a:count
             " First whitespace-only line below a line that contains
@@ -26,8 +28,7 @@ function! s:paragraph_move(direction, count)
             endif
             let i += 1
         endwhile
-    elseif a:direction < 0
-        " Backward paragraph motion.
+    elseif a:direction < 0  " Backward paragraph motion.
         normal! ^
         while i < a:count
             " First whitespace-only line above a line that contains
@@ -54,3 +55,6 @@ onoremap <silent> } :<C-U>call <SID>paragraph_move( 1, v:count1)<CR>
 
 xnoremap <silent> { :<C-U>call <SID>visual_paragraph_move(-1, v:count1)<CR>
 xnoremap <silent> } :<C-U>call <SID>visual_paragraph_move( 1, v:count1)<CR>
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
