@@ -1,4 +1,11 @@
 # vim-paramotion
+
+Note: this plugin is deprecated in favor of https://github.com/dbakker/vim-paragraph-motion,
+which has incorporated all the behavior of this plugin through a series of
+patches.
+
+---
+
 Vim global plugin that allows the `{` and `}` paragraph motions to move to
 lines that only contain whitespace, not just completely empty lines.
 
